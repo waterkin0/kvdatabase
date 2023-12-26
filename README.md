@@ -1,34 +1,39 @@
-# KV存储引擎
+# README.md
 
-实现了类似redis内的跳表结构
+- zh_CN [简体中文](README.zh_CN.md)
+- en [English](README.md)
 
-支持对这个数据库的插入数据、删除数据、查询数据、数据长期存储、文件加载数据，以及数据库大小和结构显示
+# KVdatabase
 
-基于java编写,GBK编码
+A skiplist structure similar to redis
 
-## 文件结构
+Support for inserting data into this database, deleting data, querying data, long-term storage of data, loading data from files, and displaying the size and structure of the database
 
-* data： 数据库内的数据被长期保存在这
-* SkipList： 关于节点类和跳表类的具体实现
-* test.java：对这个数据库进行操作
+Written in java,GBK encoding
 
-## 简单说说
+## file structure
 
-有关具体实现代码里写的很详细了
+* data： The data in the database is stored here
+* SkipList： About the node and skiplist
+* test.java：Perform the basic database operations
 
-关于跳表的实现，我所看到的有两种：
+## Just a few words
 
-1.分层，每一层都是一个数组，可以单独对某一层进行操作，比如遍历的时候可以直接读取最下面的那层
+The implementation is very detailed in the code
 
-2.一体，不想上面那种，每个节点都有down和next两个方向，这种结构就是简单而且易于理解，但也没上面那种方便，这里采用的第二种
+I have seen two ways to implement skiplists:
 
-然后看到有部分跳表都是在上层也存value，没想明白为啥，可能为了减少检索时间，但这样明显要存大量重复数据，有点浪费空间，个人觉得没这个必要，除了最下面那层真的需要value，上面的基本都是起引导作用，没必要去存value
+1.Layers. each layer is an array, and you can perform operations on each layer individually, such as reading the bottom layer when traversing
 
-其次就是关于这个跳表的存储，可以只存数据，也就是最下面那层的，存和读取都简单，然后就是也要存结构，也就是全都存进去
+2.Together. Not like the above one, each node in this structure has down and next two directions, this structure is simple and easy to understand, but not as convenient as the above one, here I use the second
 
-本来是想都实现的，但是这里只实现了存数据的，因为实际写的时候发现，如果结构一起存的话，读取也要对整个跳表进行重构，并没有节约多少时间
+Then I see that some skiplists also store value in the upper layer, I don't know why, maybe in order to reduce the retrieval time, but this obviously needs to store a lot of duplicate data, a bit of a waste of space, I don't think this is necessary, in addition to the bottom layer really needs value, the above basically plays a guiding role, there is no need to store value
 
-相比于常见的key只能是Integer, 本项目的key可以是string，string利用了hashcode进行编码变为Integer从而进行排序
+The second is about the storage of this skiplist, you can store only the data, that mean, the bottom layer, storage and access are simple in this way, and then you can also store the structure, that is, all stored in
+
+Originally, I want to write all of them, but I only choose the first one here, because when I actually write, I find that if the structure is stored together, the read also needs to reconstruct the whole skiplist, and it does not save much time
+
+In contrast to the common key that can only be an Integer, the key of this project can be a string, and the string uses hashcode to encode it into an Integer for sorting
 
 ## 遇到的小问题
 
