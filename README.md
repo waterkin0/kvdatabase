@@ -1,3 +1,7 @@
+sometime in the future
+
+sometime in the future
+
 # README.md
 
 - zh_CN [简体中文](README.zh_CN.md)
@@ -35,20 +39,22 @@ Originally, I want to write all of them, but I only choose the first one here, b
 
 In contrast to the common key that can only be an Integer, the key of this project can be a string, and the string uses hashcode to encode it into an Integer for sorting
 
-## 遇到的小问题
+## Some problems
 
-1. get_value遍历查找的时候一开始key匹配就直接返回了，但忘记了key匹配也可能是在上层，即value为null
-2. 之前偶尔会出现查找失败的情况，检查才发现有一行赋值出错导致表结构错了，每一层的结尾的down连到了下一层的开头
-3. 偶尔会出现删除一个元素后在遍历的时候返回null的现象，原因是因为原来的最上面的那层只有要删除的这个元素，删除之后头没下降，导致判断出错
-4. 说实话，java的泛型出发点是好的，和c的模板一样，但相比c实际用起来就是一坨，我在读取数据的时候不能得到当前的跳表泛型的实际类型，从而无法进行赋值（当然想获取泛型类型也可以，但是太复杂了），解决办法是在储存的时候存一下这个类型，读取的时候以这个形式读取
-   但是如你所见还是会出现警告，我实在没办法解决了
+Resolved:
 
-还可以优化的地方：
+1. Fisrt time I use 'get_value' to traversal, sometimes it return null, that's because it find the key which not in the  bottom, where it's value is null(all my values are in the bottom, the node above only for leading)
+2. Sometimes it can't find the real value, that's a code error led to the table structure was wrong, the 'down' at the end of each layer was connected to the beginning of the next layer
+3. Occasionally after delete one element , it will return null when traversaling, the reason is that I only delete the element in the bottom, but forget the one above, resulting in errors in judgment
+4. To be honest, the way of java's generic is good, just like c's template, but compared to c's actual use is terrible, I can't get the actual type of the current jump table generic when I read the data, so I can't assign (of course, I can get the type of the generic type, but it's too complicated), the solution is to store this type when storing, and read it when reading
+   But as you can see the warning still appears, I really can't do anything about it.
 
-1. 在以string作为key的时候，虽然大部分情况下是正常的，但仍然可能会出现问题，不推荐用string作为key
-2. UTF-8编码会出现读取错误，原因未知，改用GBK
-3. 当读取文件的类型和你开始定义的不一致的时候会出现存储的数据出错，希望可以后续改善
+Haven't resolved yet:
 
-# 后记
+1. When using string as a key, although it is mostly normal, problems may still occur and it is not recommended to use string as a key
+2. UTF-8 encoding will be read error, the reason is unknown, change to GBK
+3. When reading the file, the type of file now is different from the one when you define the file before, There will be an error in the stored data. Maybe I will solve it sometimes in the future
 
-最近在学习java和数据库，于是就找了这么一个项目来练手，还有很多不足，希望各位谅解
+# End
+
+Recently in the study of java and database, so I found such a project to practice, there are still many shortcomings, I hope you understand!
